@@ -10,13 +10,21 @@ public class CannonMovementScript : MonoBehaviour
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
-        float y = 0;
+        float y = Input.GetAxis("Vertical");
         if (x != 0)
         {
-            print("Held");
+            Vector3 rotation = new Vector3(0, rotationSpeed * x, 0);
+            if (x > 0) {
+                cannon.transform.Rotate(rotation, Space.World);
+            }
+            else if (x < 0) { 
+            
+            }
+           
+            print(x);
         }
-        if (Input.GetButton("Vertical")) { 
-        
+        if (y != 0) {
+            print(y);
         }
     }
 }
