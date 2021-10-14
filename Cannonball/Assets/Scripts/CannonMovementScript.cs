@@ -14,17 +14,16 @@ public class CannonMovementScript : MonoBehaviour
         if (x != 0)
         {
             Vector3 rotation = new Vector3(0, rotationSpeed * x, 0);
-            if (x > 0) {
-                cannon.transform.Rotate(rotation, Space.World);
+            if (Abs(cannon.EulerAngles.y) < 50 || x*cannon.EulerAngles.y < 0) {
+                cannon.transform.Rotate(rotation, Space.Local);
             }
-            else if (x < 0) { 
-            
-            }
-           
-            print(x);
         }
         if (y != 0) {
-            print(y);
+            Vector3 rotation = new Vector3();
+            if (true)
+            {
+               barrel.transform.Rotate(rotation, Space.Local);
+            }
         }
     }
 }
