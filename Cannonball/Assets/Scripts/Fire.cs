@@ -6,12 +6,13 @@ public class Fire : MonoBehaviour
 {
     public int ammoRemaining = 0;
     public int maxAmmo = 4;
-    public int maxPower = 1000;
+    public int maxPower = 100000;
     public float powerGain = 40;
     public GameObject firingOrigin;
     public GameObject cannonball;
+    private const float BASE_POWER = 20f;
     private int framesHeld = 0;
-    private float powerPercent = 5.0f;
+    private float powerPercent = BASE_POWER;
     void Start()
     {
         ammoRemaining = 4;
@@ -32,7 +33,7 @@ public class Fire : MonoBehaviour
             }
             else if (framesHeld == 40)
             {
-                powerPercent = 5.0f;
+                powerPercent = BASE_POWER;
                 framesHeld += 1;
             }
             else if (powerPercent < 100){
@@ -41,7 +42,15 @@ public class Fire : MonoBehaviour
         }
         else if (Input.GetButtonUp("Jump"))
         {
-            print("Fire at Power Level: " + powerPercent + "%");
+            if (ammoRemaining > 0) {
+                fireCannon(firingOrigin);
+            }
         }
+    }
+    void fireCannon(GameObject origin) {
+        GameObject newBall = Instantiate(cannonball, origin.transform.position, origin.transform.rotation);
+        Rigidbody ball = newBall.GetComponent<Rigidbody>();
+        Vector3 firingVelocity = origin.transform.rotation * Vector3.up;
+        ball.AddForce(firingVelocity * maxPower * (powerPercent/100));
     }
 }
