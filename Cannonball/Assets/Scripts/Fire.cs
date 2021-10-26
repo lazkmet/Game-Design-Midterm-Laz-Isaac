@@ -7,6 +7,7 @@ public class Fire : MonoBehaviour
     public int ammoRemaining = 0;
     public int maxAmmo = 4;
     public int maxPower = 100000;
+    public int existingBalls = 0;
     public float powerGain = 40;
     public GameObject firingOrigin;
     public GameObject cannonball;
@@ -15,7 +16,7 @@ public class Fire : MonoBehaviour
     private float powerPercent = BASE_POWER;
     void Start()
     {
-        ammoRemaining = 4;
+        ammoRemaining = maxAmmo;
     }
 
     // Update is called once per frame
@@ -49,6 +50,9 @@ public class Fire : MonoBehaviour
     }
     void fireCannon(GameObject origin) {
         GameObject newBall = Instantiate(cannonball, origin.transform.position, origin.transform.rotation);
+        ammoRemaining--;
+        existingBalls++;
+        newBall.tag = "cannonball";
         Rigidbody ball = newBall.GetComponent<Rigidbody>();
         Vector3 firingVelocity = origin.transform.rotation * Vector3.up;
         ball.AddForce(firingVelocity * maxPower * (powerPercent/100));
