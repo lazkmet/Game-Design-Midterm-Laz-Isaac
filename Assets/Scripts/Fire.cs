@@ -11,6 +11,8 @@ public class Fire : MonoBehaviour
     public float powerGain = 40;
     public GameObject firingOrigin;
     public GameObject cannonball;
+    public AudioSource boomSound;
+    public UIScript firingDisplay;
     private const float BASE_POWER = 20f;
     private int framesHeld = 0;
     private float powerPercent = BASE_POWER;
@@ -49,6 +51,7 @@ public class Fire : MonoBehaviour
         }
     }
     void fireCannon(GameObject origin) {
+        //Fire the ball:
         GameObject newBall = Instantiate(cannonball, origin.transform.position, origin.transform.rotation);
         ammoRemaining--;
         existingBalls++;
@@ -56,5 +59,9 @@ public class Fire : MonoBehaviour
         Rigidbody ball = newBall.GetComponent<Rigidbody>();
         Vector3 firingVelocity = origin.transform.rotation * Vector3.up;
         ball.AddForce(firingVelocity * maxPower * (powerPercent/100));
+
+        //Other firing effects:
+        boomSound.Play();
+        firingDisplay.decrementAmmo();
     }
 }

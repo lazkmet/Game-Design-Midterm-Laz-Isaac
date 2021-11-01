@@ -28,7 +28,6 @@ public class DisappearingTarget : MonoBehaviour
     {
         //Places the target at a random location selected from the existing set of places
         //Code help found at https://answers.unity.com/questions/1448283/randomly-choose-children-gameobjects-in-a-for-loop.html
-        print(previousID);
         int newLocationID;
         do {
             newLocationID = Random.Range(0, locationList.transform.childCount);
