@@ -16,7 +16,7 @@ public class CannonballDestroy : MonoBehaviour
             emitter.Stop();
 
             Destroy(cannonball);
-            if (gameFire.ammoRemaining < 1 && --gameFire.existingBalls < 1) {
+            if (--gameFire.existingBalls < 1 && gameFire.ammoRemaining < 1) {
                 SceneManager.LoadScene("GameOver");
             }
         }
