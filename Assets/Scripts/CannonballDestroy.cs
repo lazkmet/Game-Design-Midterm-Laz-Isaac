@@ -10,6 +10,11 @@ public class CannonballDestroy : MonoBehaviour
     {
         GameObject cannonball = coll.gameObject;
         if (cannonball.tag == "cannonball") {
+            //Separates smoke trail from cannonball so that it stays. Code help from: https://answers.unity.com/questions/167827/particles-disappear-when-game-object-is-destroyed.html
+            ParticleSystem emitter = cannonball.transform.GetChild(0).GetComponent<ParticleSystem>();
+            emitter.transform.parent = null;
+            emitter.Stop();
+
             Destroy(cannonball);
             if (gameFire.ammoRemaining < 1 && --gameFire.existingBalls < 1) {
                 SceneManager.LoadScene("GameOver");
