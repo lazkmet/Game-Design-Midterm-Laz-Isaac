@@ -13,12 +13,14 @@ public class Fire : MonoBehaviour
     public GameObject cannonball;
     public AudioSource boomSound;
     public UIScript firingDisplay;
+    public PowerMeter powerMeter;
     private const float BASE_POWER = 20f;
     private int framesHeld = 0;
     private float powerPercent = BASE_POWER;
     void Start()
     {
         ammoRemaining = maxAmmo;
+        powerMeter.setPower(powerPercent);
     }
 
     // Update is called once per frame
@@ -37,10 +39,12 @@ public class Fire : MonoBehaviour
             else if (framesHeld == 40)
             {
                 powerPercent = BASE_POWER;
+                powerMeter.setPower(powerPercent);
                 framesHeld += 1;
             }
             else if (powerPercent < 100){
                 powerPercent += powerGain * Time.deltaTime;
+                powerMeter.setPower(powerPercent);
             }
         }
         else if (Input.GetButtonUp("Jump"))
