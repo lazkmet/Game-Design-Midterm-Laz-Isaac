@@ -8,12 +8,14 @@ public class DisappearingTarget : MonoBehaviour
     public GameObject locationList;
     private int previousID = -1;
     private static GameObject target;
+    public AudioSource hitAudio;
     private void Awake()
     {
         //lets me reference the previous location. 
         //Code snippet from: https://answers.unity.com/questions/982403/how-to-not-duplicate-game-objects-on-dontdestroyon.html
         DontDestroyOnLoad(this.gameObject);
         DontDestroyOnLoad(locationList);
+
         if (target == null)
         {
             target = this.gameObject;
@@ -41,6 +43,8 @@ public class DisappearingTarget : MonoBehaviour
         GameObject CannonBallCollision = other.gameObject;
         if (CannonBallCollision.tag == "cannonball")
         {
+
+            hitAudio.GetComponent<AudioSource>().Play();
             SceneManager.LoadScene("CannonRoom");
             this.setPosition();
         }
